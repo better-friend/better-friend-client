@@ -5,10 +5,11 @@ import styled from 'styled-components';
 
 class Friends extends React.Component {
     state = {
-        name: '',
+        person: '',
         phone: '',
         message: '',
-        date: ''
+        date: '',
+        sent: false
     }
 
     handleChange = e => {
@@ -23,14 +24,15 @@ class Friends extends React.Component {
             <FriendsContainer>
                 <h1>Friends</h1>
                 <FormGroup>
+                    <h3>Add Friend Event</h3>
                     <Form>
                         <Label>Name: {''}
                             <Input 
                                 type="string"
-                                name="name"
+                                name="person"
                                 placeholder="Name"
                                 onChange={this.handleChange}
-                                value={this.state.name}
+                                value={this.state.person}
                             />
                         </Label>
                         <Label>Phone Number: {''}
