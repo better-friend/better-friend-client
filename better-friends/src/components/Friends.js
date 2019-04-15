@@ -26,6 +26,13 @@ class Friends extends React.Component {
                 <FormGroup>
                     <h3>Add Friend Event</h3>
                     <Form>
+                        <Label>Event Type: {''}
+                            <Select name="cars">
+                                <Option value="null">--</Option>
+                                <Option value="anniversary">Anniversary</Option>
+                                <Option value="birthday">Birthday</Option>
+                            </Select>
+                        </Label>
                         <Label>Name: {''}
                             <Input 
                                 type="string"
@@ -54,15 +61,16 @@ class Friends extends React.Component {
                             />
                         </Label>
                         <Label>Message: {''}
-                            <Input 
+                            <Textarea 
                                 type="string"
                                 name="message"
-                                maxLength="50"
+                                maxLength="150"
+                                rows="2"
+                                columns="10"
                                 placeholder="Enter message..."
                                 onChange={this.handleChange}
                                 value={this.state.message}
-                                width="100"
-                                height="100"
+                                className="message-input"
                             />
                         </Label>
                         <Button>Submit</Button>
@@ -91,6 +99,18 @@ const Label = styled.label `
     display: flex;
 `
 const Input = styled.input `
+    margin: 10px auto;
+`
+
+const Select = styled.select `
+    margin: 10px auto;
+`
+
+const Option = styled.option `
+
+`
+
+const Textarea = styled.textarea `
     margin: 10px auto;
 `
 
