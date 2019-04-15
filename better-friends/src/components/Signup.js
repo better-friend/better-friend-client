@@ -5,24 +5,30 @@ import styled from 'styled-components';
 
 class Signup extends React.Component {
     state = {
-        name: '',
-        email: '',
-        phone: '',
-        username: '',
-        password: '',
+        user: {
+            name: '',
+            email: '',
+            phone: '',
+            username: '',
+            password: '',
+        }
     }
 
     handleChange = e => {
         console.log('Changing');
-        this.setState({
-            [e.target.name]: e.target.value
-        });
+        e.persist();
+        this.setState(prevState => ({
+            user: {
+                ...prevState.user,
+                [e.target.name]: e.target.value
+            }
+        }));
     }
 
     signup = e => {
         console.log('Signing up')
         e.preventDefault();
-        
+        localStorage.setItem('user')
     }
 
     render() {
@@ -36,7 +42,7 @@ class Signup extends React.Component {
                             name="name"
                             placeholder="Name"
                             onChange={this.handleChange}
-                            value={this.state.name}
+                            value={this.state.user.name}
                             required
                         />
                         <Input 
@@ -44,7 +50,7 @@ class Signup extends React.Component {
                             name="email"
                             placeholder="Email"
                             onChange={this.handleChange}
-                            value={this.state.email}
+                            value={this.state.user.email}
                             required
                         />
                         <Input 
@@ -52,7 +58,7 @@ class Signup extends React.Component {
                             name="phone"
                             placeholder="Phone Number"
                             onChange={this.handleChange}
-                            value={this.state.phone}
+                            value={this.state.user.phone}
                             required
                         />
                         <Input 
@@ -60,7 +66,7 @@ class Signup extends React.Component {
                             name="username"
                             placeholder="Username"
                             onChange={this.handleChange}
-                            value={this.state.username}
+                            value={this.state.user.username}
                             required
                         />
                         <Input 
@@ -68,7 +74,7 @@ class Signup extends React.Component {
                             name="password"
                             placeholder="Password"
                             onChange={this.handleChange}
-                            value={this.state.password}
+                            value={this.state.user.password}
                             required
                         />
                         <Button>Signup</Button>
