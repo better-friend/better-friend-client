@@ -19,7 +19,8 @@ class Login extends React.Component {
     login = e => {
         console.log('Logging in')
         e.preventDefault();
-        
+        localStorage.setItem('user', this.state.username)
+        this.props.history.push('/friends')
     }
 
     render() {
@@ -27,7 +28,7 @@ class Login extends React.Component {
             <LoginContainer>
                 <h3>Login</h3>
                 <FormGroup>
-                    <Form>
+                    <Form onSubmit={this.login}>
                         <Input 
                             type="string"
                             name="username"
@@ -44,7 +45,7 @@ class Login extends React.Component {
                             value={this.state.password}
                             required
                         />
-                        <Button>Login</Button>
+                        <Button type="submit">Login</Button>
                     </Form>
                 </FormGroup>
             </LoginContainer>
