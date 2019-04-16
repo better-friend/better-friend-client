@@ -1,22 +1,46 @@
-import React from 'react'
-import { Button } from 'reactstrap'
-
+import React from 'react';
+import { Button } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
-class Friends extends React.Component {
+import MessageInfo from './MessageInfo';
+
+class MessageList extends React.Component {
     state = {
+        eventMessage: [{
         person: '',
         phone: '',
         message: '',
         date: '',
         sent: false
-    }
-
+    }]
+}
     handleChange = e => {
         console.log('Changing');
         this.setState({
             [e.target.name]: e.target.value
         });
+    }
+
+    addEventMessage = e => {
+        console.log('New event add', this.state);
+        e.preventDefault();
+        const newMessage = {
+            person: this.state.person,
+            phone: this.state.phone,
+            message: this.state.message,
+            date: this.state.date,
+            sent: this.state.sent
+        }
+        this.setState({
+            eventMessage: [...this.state.eventMessage, newMessage],
+            person: '',
+            phone: '',
+            message: '',
+            date: '',
+            sent: false
+        })
+        this.props.history.push('/protected')
     }
 
     render() {
@@ -25,7 +49,7 @@ class Friends extends React.Component {
                 <h1>Friends</h1>
                 <FormGroup>
                     <h3>Add Friend Event</h3>
-                    <Form>
+                    <Form onSubmit={this.addEventMessage}>
                         <Label>Event Type: {''}
                             <Select name="cars">
                                 <Option value="null">--</Option>
@@ -73,9 +97,10 @@ class Friends extends React.Component {
                                 className="message-input"
                             />
                         </Label>
-                        <Button>Submit</Button>
+                        <Button type="submit">Submit</Button>
                     </Form>
                 </FormGroup>
+                <MessageInfo message={this.state.eventMessage}/>
             </FriendsContainer>
         )
     }
@@ -114,4 +139,4 @@ const Textarea = styled.textarea `
     margin: 10px auto;
 `
 
-export default Friends;
+export default withRouter(MessageList);
