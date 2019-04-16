@@ -1,5 +1,7 @@
 # Front End for Better Friends App
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/7d5522ef-006f-47bd-a30b-a8c3fda0b227/deploy-status)](https://app.netlify.com/sites/serene-blackwell-60d47b/deploys)
+
 ## Frameworks/dependencies
 
 - React
