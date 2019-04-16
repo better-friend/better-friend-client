@@ -1,11 +1,16 @@
 import React from 'react';
 import './App.css';
-import { Route, NavLink } from 'react-router-dom'
+import { Route, NavLink } from 'react-router-dom';
+import PrivateRoute from './Authentication/PrivateRoute';
 import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Friends from './components/Friends';
 
+// For possibility of using withAuth HOC.
+// import withAuth from './Authentication/withAuth';
+
+// const WithAuthComp = withAuth(Friends)(Login);
 
 class App extends React.Component {
   render() {
@@ -28,10 +33,10 @@ class App extends React.Component {
             </NavLink>
           </li>
         </ul>
+        <PrivateRoute path='/protected' component={Friends}/>
         <Route exact path='/' component={Home}/>
         <Route path='/login' component={Login}/>
         <Route path='/signup' component={Signup}/>
-        <Route path='/friends' component={Friends}/>
       </div>
     );
   }
