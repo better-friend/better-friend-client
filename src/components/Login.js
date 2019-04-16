@@ -21,7 +21,7 @@ class Login extends React.Component {
         e.preventDefault();
         // Added to make sure login works until backend is ready to take API requests
         localStorage.setItem('user', this.state.username)
-        this.props.history.push('/friends')
+        this.props.history.push('/protected')
     }
 
     render() {
