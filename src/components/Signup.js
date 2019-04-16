@@ -28,7 +28,9 @@ class Signup extends React.Component {
     signup = e => {
         console.log('Signing up')
         e.preventDefault();
-        localStorage.setItem('user')
+        // Added to make sure sign up works until backend is ready to take API requests
+        localStorage.setItem('user', this.state.user.name)
+        this.props.history.push('/login')
     }
 
     render() {
@@ -36,7 +38,7 @@ class Signup extends React.Component {
             <SignupContainer>
                 <h3>SignUp</h3>
                 <FormGroup>
-                    <Form>
+                    <Form onSubmit={this.signup}>
                         <Input 
                             type="string"
                             name="name"
@@ -77,7 +79,7 @@ class Signup extends React.Component {
                             value={this.state.user.password}
                             required
                         />
-                        <Button>Signup</Button>
+                        <Button type="submit">Signup</Button>
                     </Form>
                 </FormGroup>
             </SignupContainer>
