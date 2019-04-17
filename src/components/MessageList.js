@@ -3,17 +3,18 @@ import { Button } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
-import MessageInfo from './MessageInfo';
+import MessageContainer from './MessageContainer';
 
 class MessageList extends React.Component {
     state = {
         eventMessage: [{
-        person: '',
-        phone: '',
-        message: '',
-        date: '',
-        sent: false
-    }]
+            person: '',
+            phone: '',
+            message: '',
+            date: '',
+            sent: false
+    }],
+    searchData: []
 }
     handleChange = e => {
         console.log('Changing');
@@ -43,15 +44,38 @@ class MessageList extends React.Component {
         this.props.history.push('/protected')
     }
 
+    searchMessages = e => {
+        console.log('Searching...')
+        const messages = this.state.eventMessage.filter(message => {
+            if(message.person.includes(e.target.value) || message.date.includes(e.target.value)) {
+                return message
+            } else {
+                return null
+            }
+        });
+        this.setState({
+            searchData: messages
+        })
+    }
+
+
     render() {
         return (
             <FriendsContainer>
                 <h1>Friends</h1>
+                <input 
+                    type="search"
+                    name="search"
+                    placeholder="Search"
+                    onChange={this.searchMessages}
+                    value={this.state.value}
+                />
+                <button>Search Messages</button>
                 <FormGroup>
                     <h3>Add Friend Event</h3>
                     <Form onSubmit={this.addEventMessage}>
                         <Label>Event Type: {''}
-                            <Select name="cars">
+                            <Select name="events">
                                 <Option value="null">--</Option>
                                 <Option value="anniversary">Anniversary</Option>
                                 <Option value="birthday">Birthday</Option>
@@ -100,7 +124,11 @@ class MessageList extends React.Component {
                         <Button type="submit">Submit</Button>
                     </Form>
                 </FormGroup>
-                <MessageInfo message={this.state.eventMessage}/>
+                <MessageContainer messageData={
+                    this.state.searchData.length > 0 ?
+                    this.state.searchData :
+                    this.state.eventMessage
+                }/>
             </FriendsContainer>
         )
     }
