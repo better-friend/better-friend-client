@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
+// import axios from 'axios';
 import { Route, NavLink } from 'react-router-dom';
 import PrivateRoute from './Authentication/PrivateRoute';
 import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import Friends from './components/Friends';
+import MessageList from './components/MessageList';
 
 // For possibility of using withAuth HOC.
 // import withAuth from './Authentication/withAuth';
@@ -14,6 +15,7 @@ import Friends from './components/Friends';
 
 class App extends React.Component {
   render() {
+    console.log('Rendering...')
     return (
       <div className="App">
         <ul className="navBar">
@@ -33,7 +35,7 @@ class App extends React.Component {
             </NavLink>
           </li>
         </ul>
-        <PrivateRoute path='/protected' component={Friends}/>
+        <PrivateRoute path='/protected' component={MessageList}/>
         <Route exact path='/' component={Home}/>
         <Route path='/login' component={Login}/>
         <Route path='/signup' component={Signup}/>
