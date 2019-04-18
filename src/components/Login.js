@@ -78,6 +78,10 @@ const LoginContainer = styled.div `
     border-radius: 5px;
     margin: 50px auto;
     width: 300px;
+    background: #f0b7a4;
+    color: #305f72;
+    font-weight: 700;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);
 `
 const Form = styled.form `
     margin: 50px;

@@ -2,12 +2,14 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from './Button';
+import MessageContainer from './MessageContainer';
 
 class MessageList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            messages: []
+            messages: [],
+            searchData: []
         }
     }
 
@@ -42,21 +44,36 @@ class MessageList extends React.Component {
     //     this.props.history.push('/protected')
     // }
 
+    searchMessages = e => {
+        console.log('Searching...')
+        const messages = this.state.messages.filter(message => {
+            // toLowerCase() Allows the search to include both uppercase and lowercase characters
+            if(message.person.toLowerCase().includes(e.target.value.toLowerCase()) || message.date.includes(e.target.value)) {
+                return message
+            } else {
+                return null
+            }
+        });
+        this.setState({
+            searchData: messages
+        })
+    }
+
 
     render() {
         return (
             <FriendsContainer>
-                <h1>Friends</h1>
-                <input 
+                <EventFormH1>Message Scheduler</EventFormH1>
+                <Input 
                     type="search"
                     name="search"
                     placeholder="Search"
-                    onChange={this.props.searchMessages}
+                    onChange={this.searchMessages}
                     value={this.state.value}
                 />
-                <button>Search Messages</button>
+                <Button type="primary">Search Messages</Button>
                 <FormGroup>
-                    <h3>Add Friend Event</h3>
+                    <EventFormH3>Add Friend Event</EventFormH3>
                     <Form onSubmit={this.props.addMessage}>
 
                         <Label>Name: {''}
@@ -99,14 +116,16 @@ class MessageList extends React.Component {
                                 className="message-input"
                             />
                         </Label>
-                        <Button type="primary">Submit</Button>
+                        <Button type="primary" size="lg">Submit</Button>
                     </Form>
                 </FormGroup>
-                {/* <MessageContainer messageData={
-                    this.state.searchData.length > 0 ?
-                    this.state.searchData :
-                    this.state.messages
-                }/> */}
+                <MessageContainer 
+                    messageData={
+                        this.state.searchData.length > 0 ?
+                        this.state.searchData :
+                        this.state.messages
+                    }
+                />
             </FriendsContainer>
         )
     }
@@ -116,11 +135,27 @@ const FriendsContainer = styled.div `
 
 `
 
+const EventFormH1 = styled.h1 `
+    
+`
+
+const EventFormH3 = styled.h3 `
+    background: #305f72;
+    color: #f0b7a4;
+    margin: 0px;
+    height: 25px;
+    padding: 25px;
+`
+
 const FormGroup = styled.div `
-    border: 1px solid black;
+    border: 1px solid #305f72;
     border-radius: 5px;
     margin: 50px auto;
     width: 500px;
+    background: #f0b7a4;
+    color: #305f72;
+    font-weight: 700;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);
 `
 const Form = styled.form `
     margin: 50px;

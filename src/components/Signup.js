@@ -43,7 +43,7 @@ class Signup extends React.Component {
     render() {
         return(
             <SignupContainer>
-                <h3>SignUp</h3>
+                <h3>Sign Up</h3>
                 <FormGroup>
                     <Form onSubmit={this.signup}>
                         <Input 
@@ -62,7 +62,7 @@ class Signup extends React.Component {
                             value={this.state.password}
                             required
                         />
-                        <Button type="primary">Signup</Button>
+                        <Button type="primary">Submit</Button>
                     </Form>
                 </FormGroup>
             </SignupContainer>
@@ -75,6 +75,10 @@ const SignupContainer = styled.div `
     border-radius: 5px;
     margin: 50px auto;
     width: 300px;
+    background: #f0b7a4;
+    color: #305f72;
+    font-weight: 700;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);
 `
 const Form = styled.form `
     margin: 50px;
