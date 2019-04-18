@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 
 const PrivateRoute = ({ component: Component, render ,...rest }) => {
+    console.log('component:', Component, render, rest)
     const toRender = Component ? <Component {...rest} /> : render(rest);
     return (
         <Route {...rest} render={() => {
