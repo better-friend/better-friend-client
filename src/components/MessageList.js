@@ -51,13 +51,13 @@ class MessageList extends React.Component {
                     type="search"
                     name="search"
                     placeholder="Search"
-                    onChange={this.searchMessages}
+                    onChange={this.props.searchMessages}
                     value={this.state.value}
                 />
                 <button>Search Messages</button>
                 <FormGroup>
                     <h3>Add Friend Event</h3>
-                    <Form onSubmit={this.addMessage}>
+                    <Form onSubmit={this.props.addMessage}>
 
                         <Label>Name: {''}
                             <Input 
