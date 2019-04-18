@@ -12,7 +12,9 @@ const MessageInfo = props => {
                 <p>Phone Number: {props.message.phone_number}</p>
                 <p>Message: {props.message.message}</p>
                 <p>Send Date: {props.message.date}</p>
+                <button>Delete</button>
                 {/* </CardBody>
+                
             </Card> */}
         </div>
     )

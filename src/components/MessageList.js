@@ -35,7 +35,7 @@ class MessageList extends React.Component {
 
     searchMessages = e => {
         console.log('Searching...')
-        const messages = this.state.messages.filter(message => {
+        const messages = this.props.messages.filter(message => {
             // toLowerCase() Allows the search to include both uppercase and lowercase characters
             if(message.personToSendMessageTo.toLowerCase().includes(e.target.value.toLowerCase()) || message.date.includes(e.target.value)) {
                 return message
@@ -64,8 +64,8 @@ class MessageList extends React.Component {
                     type="search"
                     name="search"
                     placeholder="Search"
-                    // onChange={this.searchMessages}
-                    // value={this.state.value}
+                    onChange={this.searchMessages}
+                    value={this.state.value}
                 />
                 <Button type="primary">Search Messages</Button>
                 <FormGroup>
