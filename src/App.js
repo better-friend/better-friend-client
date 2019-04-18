@@ -10,14 +10,14 @@ import MessageList from './components/MessageList';
 
 // For possibility of using withAuth HOC.
 // import withAuth from './Authentication/withAuth';
-import MessageContainer from './components/MessageContainer';
+// import MessageContainer from './components/MessageContainer';
 
 // const WithAuthComp = withAuth(Friends)(Login);
 
 class App extends React.Component {
   state = {
     messages: [],
-    searchData: []
+    // searchData: []
   }
 
   // Need to work on connecting end point for rendering message data
@@ -44,7 +44,7 @@ class App extends React.Component {
         if(message.person.toLowerCase().includes(e.target.value.toLowerCase()) || message.date.includes(e.target.value)) {
             return message
         } else {
-            return ''
+            return null
         }
     });
     this.setState({
@@ -80,8 +80,9 @@ class App extends React.Component {
     return (
       <div className="App">
         <ul className="navBar">
+          <h1>Better Friends</h1>
           <li>
-            <NavLink exact to="/" className="activeNav">
+            <NavLink exact to="/betterfriends" className="activeNav">
               Home
             </NavLink>
           </li>
@@ -100,13 +101,16 @@ class App extends React.Component {
           <PrivateRoute path='/protected' render={props => <MessageList {...props} addMessage={this.addEventMessage} searchMessages={this.searchMessages}/>}/>
           {/* <PrivateRoute path="/protected" component={MessageList}/> */}
           <Route exact path='/' component={Home}/>
+          <Route exact path='/betterfriends' component={() => { window.location = 'https://elastic-snyder-dac5a4.netlify.com/'; return null;} }/>
           <Route path='/login' component={Login}/>
           <Route path='/signup' component={Signup}/>
-          <MessageContainer messageData={
-            this.state.searchData.length > 0 ?
-            this.state.searchData :
-            this.state.messages
-          }/>
+          {/* <MessageContainer 
+            messageData={
+              this.state.searchData.length > 0 ?
+              this.state.searchData :
+              this.state.messages
+            }
+          /> */}
         </Switch>
       </div>
     );
