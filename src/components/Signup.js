@@ -1,74 +1,56 @@
 import React from 'react';
-import { FormGroup, Input, Button } from 'reactstrap';
+import axios from 'axios';
+import { FormGroup, Input } from 'reactstrap';
 
 import styled from 'styled-components';
+import Button from './Button';
 
 class Signup extends React.Component {
     state = {
-        user: {
-            name: '',
-            email: '',
-            phone: '',
             username: '',
             password: '',
-        }
     }
 
     handleChange = e => {
         console.log('Changing');
         e.persist();
-        this.setState(prevState => ({
-            user: {
-                ...prevState.user,
+        this.setState({
                 [e.target.name]: e.target.value
-            }
-        }));
+        })
     }
 
     signup = e => {
         console.log('Signing up')
         e.preventDefault();
+        const user = {
+            username: this.state.username,
+            password: this.state.password
+        }
         // Added to make sure sign up works until backend is ready to take API requests
-        localStorage.setItem('user', this.state.user.name)
+        axios
+            .post('https://better-friend-server.herokuapp.com/users/register', user)
+            .then(res => {
+                console.log(res.data)
+                // localStorage.setItem('token', res.data.token)
+                // this.setState({
+                    
+                // })
+            })
         this.props.history.push('/login')
     }
 
     render() {
         return(
             <SignupContainer>
-                <h3>SignUp</h3>
+                <h3>Sign Up</h3>
                 <FormGroup>
                     <Form onSubmit={this.signup}>
-                        <Input 
-                            type="string"
-                            name="name"
-                            placeholder="Name"
-                            onChange={this.handleChange}
-                            value={this.state.user.name}
-                            required
-                        />
-                        <Input 
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            onChange={this.handleChange}
-                            value={this.state.user.email}
-                            required
-                        />
-                        <Input 
-                            type="tel"
-                            name="phone"
-                            placeholder="Phone Number"
-                            onChange={this.handleChange}
-                            value={this.state.user.phone}
-                            required
-                        />
                         <Input 
                             type="string"
                             name="username"
                             placeholder="Username"
                             onChange={this.handleChange}
-                            value={this.state.user.username}
+                            value={this.state.username}
                             required
                         />
                         <Input 
@@ -76,10 +58,10 @@ class Signup extends React.Component {
                             name="password"
                             placeholder="Password"
                             onChange={this.handleChange}
-                            value={this.state.user.password}
+                            value={this.state.password}
                             required
                         />
-                        <Button type="submit">Signup</Button>
+                        <Button type="primary">Submit</Button>
                     </Form>
                 </FormGroup>
             </SignupContainer>
@@ -92,6 +74,10 @@ const SignupContainer = styled.div `
     border-radius: 5px;
     margin: 50px auto;
     width: 300px;
+    background: #f0b7a4;
+    color: #305f72;
+    font-weight: 700;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);
 `
 const Form = styled.form `
     margin: 50px;

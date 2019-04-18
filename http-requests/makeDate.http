@@ -1,0 +1,14 @@
+POST https://better-friend-server.herokuapp.com/dates/1 HTTP/1.1
+content-type: application/json
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG41NTUiLCJwYXNzd29yZCI6IiQyYSQxMiRuMnVlVDVoTFlDdVpqei5BdzdqQU51SDhITWlSZmNHUXYzODFsYUx1NTZxaEJleURRdkEzaSIsImlhdCI6MTU1NTYxMDM3NCwiZXhwIjoxNTU1Njk2Nzc0fQ.wJPZgFxjWAh_mhZMUSV0DTTy2HLpJryg_IMTa52nY0A
+
+{
+    "user_id": 1,
+    "username": "john555",
+    "date": "Wed Apr 17 2019 17:48:45 GMT+0000 (Coordinated Universal Time)",
+    "personToSendMessageTo": "Lucy",
+    "phone_number": "555-555-5555",
+    "message": "Happy Birthday To You",
+    "sent": false
+}
+

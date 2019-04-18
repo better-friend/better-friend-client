@@ -1,13 +1,17 @@
 import React from 'react';
-import { FormGroup, Input, Button } from 'reactstrap'
+import axios from 'axios'
+import { FormGroup, Input } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
 
 import styled from 'styled-components';
+import Button from './Button';
 
 class Login extends React.Component {
     state = {
         username: '',
         password: ''
     }
+
 
     handleChange = e => {
         console.log('Changing');
@@ -19,9 +23,32 @@ class Login extends React.Component {
     login = e => {
         console.log('Logging in')
         e.preventDefault();
-        // Added to make sure login works until backend is ready to take API requests
-        localStorage.setItem('user', this.state.username)
-        this.props.history.push('/protected')
+        const user = {
+            username: this.state.username,
+            password: this.state.password
+        };
+
+        // let user_id = localStorage.getItem('user_id');
+        // if (user_id) {
+        //     this.props.history.push(`/protected/:user_id`)
+        // };
+        axios
+            .post('https://better-friend-server.herokuapp.com/users/login', user)
+            .then(res => {
+                console.log(res.data)
+                this.props.updateUser(res.data, ()=> {
+                    this.props.history.push(`/protected/${res.data.user_id}`)
+                    console.log(res.data.user_id)
+                })
+                try {
+                    localStorage.setItem('userData', JSON.stringify(res.data))
+                } catch (error) {
+                    console.log(error)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     render() {
@@ -34,6 +61,7 @@ class Login extends React.Component {
                             type="string"
                             name="username"
                             placeholder="Username"
+                            autoComplete="on"
                             onChange={this.handleChange}
                             value={this.state.username}
                             required
@@ -42,11 +70,12 @@ class Login extends React.Component {
                             type="password"
                             name="password"
                             placeholder="Password"
+                            autoComplete="on"
                             onChange={this.handleChange}
                             value={this.state.password}
                             required
                         />
-                        <Button type="submit">Login</Button>
+                        <Button type="primary">Login</Button>
                     </Form>
                 </FormGroup>
             </LoginContainer>
@@ -59,10 +88,14 @@ const LoginContainer = styled.div `
     border-radius: 5px;
     margin: 50px auto;
     width: 300px;
+    background: #f0b7a4;
+    color: #305f72;
+    font-weight: 700;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);
 `
 const Form = styled.form `
     margin: 50px;
 `
 
 
-export default Login;
+export default withRouter(Login);

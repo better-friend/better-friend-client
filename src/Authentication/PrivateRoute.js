@@ -1,11 +1,13 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, withRouter } from 'react-router-dom';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ component: Component, render ,...rest }) => {
+    console.log('component:', Component, render, rest)
+    const toRender = Component ? <Component {...rest} /> : render(rest);
     return (
         <Route {...rest} render={() => {
-            if(localStorage.getItem('user')) {
-                return <Component />
+            if(localStorage.getItem('userData')) {
+                return toRender
             } else {
             return <Redirect to="/login"/>
             }
@@ -15,4 +17,4 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 }
 
 
-export default PrivateRoute;
+export default withRouter(PrivateRoute);
