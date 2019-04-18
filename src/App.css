@@ -1,3 +1,13 @@
+/* GLOBAL STYLING */
+
+h3 {
+  background: #305f72;
+  color: #f0b7a4;
+  margin: 0px;
+  height: 25px;
+  padding: 25px;
+}
+
 .App {
   text-align: center;
 }
@@ -25,4 +35,10 @@
   background: #f0b7a4;
   color: #305f72;
   padding: 20px;
+}
+
+.navBar h1 {
+  margin: 0 auto;
+  max-width: 100%;
+  color: #f0b7a4;
 }
