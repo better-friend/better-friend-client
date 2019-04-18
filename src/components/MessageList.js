@@ -1,21 +1,16 @@
 import React from 'react';
-import { Button } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-
-import MessageContainer from './MessageContainer';
+import Button from './Button';
 
 class MessageList extends React.Component {
-    state = {
-        eventMessage: [{
-            person: '',
-            phone: '',
-            message: '',
-            date: '',
-            sent: false
-    }],
-    searchData: []
-}
+    constructor(props) {
+        super(props);
+        this.state = {
+            messages: []
+        }
+    }
+
     handleChange = e => {
         console.log('Changing');
         this.setState({
@@ -23,40 +18,29 @@ class MessageList extends React.Component {
         });
     }
 
-    addEventMessage = e => {
-        console.log('New event add', this.state);
-        e.preventDefault();
-        const newMessage = {
-            person: this.state.person,
-            phone: this.state.phone,
-            message: this.state.message,
-            date: this.state.date,
-            sent: this.state.sent
-        }
-        this.setState({
-            eventMessage: [...this.state.eventMessage, newMessage],
-            person: '',
-            phone: '',
-            message: '',
-            date: '',
-            sent: false
-        })
-        this.props.history.push('/protected')
-    }
-
-    searchMessages = e => {
-        console.log('Searching...')
-        const messages = this.state.eventMessage.filter(message => {
-            if(message.person.includes(e.target.value) || message.date.includes(e.target.value)) {
-                return message
-            } else {
-                return null
-            }
-        });
-        this.setState({
-            searchData: messages
-        })
-    }
+    // Will delete later
+    // addMessage = e => {
+    //     console.log('New event add', this.state);
+    //     e.preventDefault();
+    //     const newMessage = {
+    //         person: this.state.person,
+    //         phone: this.state.phone,
+    //         message: this.state.message,
+    //         date: this.state.date,
+    //         sent: this.state.sent,
+    //         id: this.state.id
+    //     }
+    //     this.setState({
+    //        messages: [...this.state.messages, newMessage],
+    //         person: '',
+    //         phone: '',
+    //         message: '',
+    //         date: '',
+    //         sent: false,
+    //         id: ''
+    //     })
+    //     this.props.history.push('/protected')
+    // }
 
 
     render() {
@@ -73,21 +57,15 @@ class MessageList extends React.Component {
                 <button>Search Messages</button>
                 <FormGroup>
                     <h3>Add Friend Event</h3>
-                    <Form onSubmit={this.addEventMessage}>
-                        <Label>Event Type: {''}
-                            <Select name="events">
-                                <Option value="null">--</Option>
-                                <Option value="anniversary">Anniversary</Option>
-                                <Option value="birthday">Birthday</Option>
-                            </Select>
-                        </Label>
+                    <Form onSubmit={this.addMessage}>
+
                         <Label>Name: {''}
                             <Input 
                                 type="string"
                                 name="person"
                                 placeholder="Name"
                                 onChange={this.handleChange}
-                                value={this.state.person}
+                                value={this.state.value}
                             />
                         </Label>
                         <Label>Phone Number: {''}
@@ -96,7 +74,7 @@ class MessageList extends React.Component {
                                 name="phone"
                                 placeholder="Phone Number"
                                 onChange={this.handleChange}
-                                value={this.state.phone}
+                                value={this.state.value}
                             />
                         </Label>
                         <Label>Send Date: {''}
@@ -105,7 +83,7 @@ class MessageList extends React.Component {
                                 name="date"
                                 placeholder="Date"
                                 onChange={this.handleChange}
-                                value={this.state.date}
+                                value={this.state.value}
                             />
                         </Label>
                         <Label>Message: {''}
@@ -117,18 +95,18 @@ class MessageList extends React.Component {
                                 columns="10"
                                 placeholder="Enter message..."
                                 onChange={this.handleChange}
-                                value={this.state.message}
+                                value={this.state.value}
                                 className="message-input"
                             />
                         </Label>
-                        <Button type="submit">Submit</Button>
+                        <Button type="primary">Submit</Button>
                     </Form>
                 </FormGroup>
-                <MessageContainer messageData={
+                {/* <MessageContainer messageData={
                     this.state.searchData.length > 0 ?
                     this.state.searchData :
-                    this.state.eventMessage
-                }/>
+                    this.state.messages
+                }/> */}
             </FriendsContainer>
         )
     }
@@ -152,15 +130,7 @@ const Label = styled.label `
     display: flex;
 `
 const Input = styled.input `
-    margin: 10px auto;
-`
-
-const Select = styled.select `
-    margin: 10px auto;
-`
-
-const Option = styled.option `
-
+    margin: 10px;
 `
 
 const Textarea = styled.textarea `
