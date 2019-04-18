@@ -1,13 +1,17 @@
 import React from 'react';
-import { FormGroup, Input, Button } from 'reactstrap'
+import axios from 'axios'
+import { FormGroup, Input } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
 
 import styled from 'styled-components';
+import Button from './Button';
 
 class Login extends React.Component {
     state = {
         username: '',
         password: ''
     }
+
 
     handleChange = e => {
         console.log('Changing');
@@ -19,8 +23,21 @@ class Login extends React.Component {
     login = e => {
         console.log('Logging in')
         e.preventDefault();
-        // Added to make sure login works until backend is ready to take API requests
-        localStorage.setItem('user', this.state.username)
+        const user = {
+            username: this.state.username,
+            password: this.state.password
+        }
+        axios
+            .post('https://better-friend-server.herokuapp.com/users/login', user)
+            .then(res => {
+                console.log(res.data)
+                axios.create({
+                    headers: {
+                        'Authorization': localStorage.setItem('token', res.data.token)
+                    }
+                })
+            })
+        
         this.props.history.push('/protected')
     }
 
@@ -34,6 +51,7 @@ class Login extends React.Component {
                             type="string"
                             name="username"
                             placeholder="Username"
+                            autoComplete="on"
                             onChange={this.handleChange}
                             value={this.state.username}
                             required
@@ -42,11 +60,12 @@ class Login extends React.Component {
                             type="password"
                             name="password"
                             placeholder="Password"
+                            autoComplete="on"
                             onChange={this.handleChange}
                             value={this.state.password}
                             required
                         />
-                        <Button type="submit">Login</Button>
+                        <Button type="primary">Login</Button>
                     </Form>
                 </FormGroup>
             </LoginContainer>
@@ -65,4 +84,4 @@ const Form = styled.form `
 `
 
 
-export default Login;
+export default withRouter(Login);
