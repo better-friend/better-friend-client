@@ -4,51 +4,40 @@ import styled from 'styled-components';
 import Button from './Button';
 import MessageContainer from './MessageContainer';
 
+const blankMessage = {
+    user_id: '',
+    date: '',
+    personToSendMessageTo: '',
+    phone_number: '',
+    message: '',
+    sent: false
+}
+
 class MessageList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             messages: [],
-            searchData: []
+            searchData: [],
+            newMessage: {...blankMessage}
         }
     }
 
     handleChange = e => {
         console.log('Changing');
         this.setState({
-            [e.target.name]: e.target.value
+            newMessage: {...this.state.newMessage, 
+                [e.target.name]: e.target.value
+            }
         });
     }
 
-    // Will delete later
-    // addMessage = e => {
-    //     console.log('New event add', this.state);
-    //     e.preventDefault();
-    //     const newMessage = {
-    //         person: this.state.person,
-    //         phone: this.state.phone,
-    //         message: this.state.message,
-    //         date: this.state.date,
-    //         sent: this.state.sent,
-    //         id: this.state.id
-    //     }
-    //     this.setState({
-    //        messages: [...this.state.messages, newMessage],
-    //         person: '',
-    //         phone: '',
-    //         message: '',
-    //         date: '',
-    //         sent: false,
-    //         id: ''
-    //     })
-    //     this.props.history.push('/protected')
-    // }
 
     searchMessages = e => {
         console.log('Searching...')
         const messages = this.state.messages.filter(message => {
             // toLowerCase() Allows the search to include both uppercase and lowercase characters
-            if(message.person.toLowerCase().includes(e.target.value.toLowerCase()) || message.date.includes(e.target.value)) {
+            if(message.personToSendMessageTo.toLowerCase().includes(e.target.value.toLowerCase()) || message.date.includes(e.target.value)) {
                 return message
             } else {
                 return null
@@ -59,6 +48,13 @@ class MessageList extends React.Component {
         })
     }
 
+    onSubmit = e => {
+        e.preventDefault();
+        this.props.addMessage(this.state.newMessage);
+        this.setState({
+            newMessage: {...blankMessage}
+        })
+    }
 
     render() {
         return (
@@ -68,30 +64,30 @@ class MessageList extends React.Component {
                     type="search"
                     name="search"
                     placeholder="Search"
-                    onChange={this.searchMessages}
-                    value={this.state.value}
+                    // onChange={this.searchMessages}
+                    // value={this.state.value}
                 />
                 <Button type="primary">Search Messages</Button>
                 <FormGroup>
                     <EventFormH3>Add Friend Event</EventFormH3>
-                    <Form onSubmit={this.props.addMessage}>
+                    <Form onSubmit={this.onSubmit}>
 
                         <Label>Name: {''}
                             <Input 
                                 type="string"
-                                name="person"
+                                name="personToSendMessageTo"
                                 placeholder="Name"
                                 onChange={this.handleChange}
-                                value={this.state.value}
+                                value={this.state.newMessage.personToSendMessageTo}
                             />
                         </Label>
                         <Label>Phone Number: {''}
                             <Input 
                                 type="tel"
-                                name="phone"
+                                name="phone_number"
                                 placeholder="Phone Number"
                                 onChange={this.handleChange}
-                                value={this.state.value}
+                                value={this.state.newMessage.phone_number}
                             />
                         </Label>
                         <Label>Send Date: {''}
@@ -100,7 +96,7 @@ class MessageList extends React.Component {
                                 name="date"
                                 placeholder="Date"
                                 onChange={this.handleChange}
-                                value={this.state.value}
+                                value={this.state.newMessage.date}
                             />
                         </Label>
                         <Label>Message: {''}
@@ -112,7 +108,7 @@ class MessageList extends React.Component {
                                 columns="10"
                                 placeholder="Enter message..."
                                 onChange={this.handleChange}
-                                value={this.state.value}
+                                value={this.state.newMessage.message}
                                 className="message-input"
                             />
                         </Label>
@@ -123,7 +119,7 @@ class MessageList extends React.Component {
                     messageData={
                         this.state.searchData.length > 0 ?
                         this.state.searchData :
-                        this.state.messages
+                        this.props.messages
                     }
                 />
             </FriendsContainer>

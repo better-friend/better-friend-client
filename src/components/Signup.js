@@ -36,7 +36,6 @@ class Signup extends React.Component {
                     
                 // })
             })
-        // localStorage.setItem('user', this.state.name)
         this.props.history.push('/login')
     }
 

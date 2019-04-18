@@ -26,19 +26,29 @@ class Login extends React.Component {
         const user = {
             username: this.state.username,
             password: this.state.password
-        }
+        };
+
+        // let user_id = localStorage.getItem('user_id');
+        // if (user_id) {
+        //     this.props.history.push(`/protected/:user_id`)
+        // };
         axios
             .post('https://better-friend-server.herokuapp.com/users/login', user)
             .then(res => {
                 console.log(res.data)
-                axios.create({
-                    headers: {
-                        'Authorization': localStorage.setItem('token', res.data.token)
-                    }
+                this.props.updateUser(res.data, ()=> {
+                    this.props.history.push(`/protected/${res.data.user_id}`)
+                    console.log(res.data.user_id)
                 })
+                try {
+                    localStorage.setItem('userData', JSON.stringify(res.data))
+                } catch (error) {
+                    console.log(error)
+                }
             })
-        
-        this.props.history.push('/protected')
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     render() {

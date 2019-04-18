@@ -8,8 +8,8 @@ const MessageInfo = props => {
         <div>
             {/* <Card>
                 <CardBody> */}
-                <p>Recipient: {props.message.person}</p>
-                <p>Phone Number: {props.message.phone}</p>
+                <p>Recipient: {props.message.personToSendMessageTo}</p>
+                <p>Phone Number: {props.message.phone_number}</p>
                 <p>Message: {props.message.message}</p>
                 <p>Send Date: {props.message.date}</p>
                 {/* </CardBody>
