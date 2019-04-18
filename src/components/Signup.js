@@ -1,35 +1,42 @@
 import React from 'react';
-import { FormGroup, Input, Button } from 'reactstrap';
+import axios from 'axios';
+import { FormGroup, Input } from 'reactstrap';
 
 import styled from 'styled-components';
+import Button from './Button';
 
 class Signup extends React.Component {
     state = {
-        user: {
-            name: '',
-            email: '',
-            phone: '',
             username: '',
             password: '',
-        }
     }
 
     handleChange = e => {
         console.log('Changing');
         e.persist();
-        this.setState(prevState => ({
-            user: {
-                ...prevState.user,
+        this.setState({
                 [e.target.name]: e.target.value
-            }
-        }));
+        })
     }
 
     signup = e => {
         console.log('Signing up')
         e.preventDefault();
+        const user = {
+            username: this.state.username,
+            password: this.state.password
+        }
         // Added to make sure sign up works until backend is ready to take API requests
-        localStorage.setItem('user', this.state.user.name)
+        axios
+            .post('https://better-friend-server.herokuapp.com/users/register', user)
+            .then(res => {
+                console.log(res.data)
+                // localStorage.setItem('token', res.data.token)
+                // this.setState({
+                    
+                // })
+            })
+        // localStorage.setItem('user', this.state.name)
         this.props.history.push('/login')
     }
 
@@ -41,34 +48,10 @@ class Signup extends React.Component {
                     <Form onSubmit={this.signup}>
                         <Input 
                             type="string"
-                            name="name"
-                            placeholder="Name"
-                            onChange={this.handleChange}
-                            value={this.state.user.name}
-                            required
-                        />
-                        <Input 
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            onChange={this.handleChange}
-                            value={this.state.user.email}
-                            required
-                        />
-                        <Input 
-                            type="tel"
-                            name="phone"
-                            placeholder="Phone Number"
-                            onChange={this.handleChange}
-                            value={this.state.user.phone}
-                            required
-                        />
-                        <Input 
-                            type="string"
                             name="username"
                             placeholder="Username"
                             onChange={this.handleChange}
-                            value={this.state.user.username}
+                            value={this.state.username}
                             required
                         />
                         <Input 
@@ -76,10 +59,10 @@ class Signup extends React.Component {
                             name="password"
                             placeholder="Password"
                             onChange={this.handleChange}
-                            value={this.state.user.password}
+                            value={this.state.password}
                             required
                         />
-                        <Button type="submit">Signup</Button>
+                        <Button type="primary">Signup</Button>
                     </Form>
                 </FormGroup>
             </SignupContainer>
