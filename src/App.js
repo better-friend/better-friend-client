@@ -20,6 +20,7 @@ class App extends React.Component {
     searchData: []
   }
 
+  // Need to work on connecting end point for rendering message data
   componentDidMount() {
     console.log('Mounting...', this.state.messages)
       const userId = localStorage.getItem('userId')
@@ -51,6 +52,7 @@ class App extends React.Component {
     })
 }
 
+  // Will replace with axios post request to API
   //   addEventMessage = e => {
   //     console.log('New event add', this.state.messages);
   //     e.preventDefault();
