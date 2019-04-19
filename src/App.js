@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import axios from 'axios';
-import { Route, NavLink, Link, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from './Authentication/PrivateRoute';
 import Home from './components/Home';
 import Login from './components/Login';

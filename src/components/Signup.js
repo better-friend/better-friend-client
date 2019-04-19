@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { FormGroup, Input } from 'reactstrap';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from './Button';
 
@@ -43,7 +43,7 @@ class Signup extends React.Component {
         return(                
         <div>
             <ul className="navBar">
-                <Link to="https://never-be-that-friend-again.netlify.com/" style={{textDecoration: 'none'}}><h1>Better Friends</h1></Link>
+                <h1>Better Friends</h1>
                     <li>
                         <NavLink exact to="/" className="activeNav">
                         Home
