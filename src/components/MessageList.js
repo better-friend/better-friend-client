@@ -24,7 +24,6 @@ class MessageList extends React.Component {
     }
 
     handleChange = e => {
-        console.log('Changing');
         this.setState({
             newMessage: {...this.state.newMessage, 
                 [e.target.name]: e.target.value
@@ -34,7 +33,6 @@ class MessageList extends React.Component {
 
 
     searchMessages = e => {
-        console.log('Searching...')
         const messages = this.props.messages.filter(message => {
             // toLowerCase() Allows the search to include both uppercase and lowercase characters
             if(message.personToSendMessageTo.toLowerCase().includes(e.target.value.toLowerCase()) || message.date.includes(e.target.value)) {
@@ -55,6 +53,8 @@ class MessageList extends React.Component {
             newMessage: {...blankMessage}
         })
     }
+
+
 
     render() {
         return (
@@ -116,11 +116,13 @@ class MessageList extends React.Component {
                     </Form>
                 </FormGroup>
                 <MessageContainer 
+                    messages={this.props.messages}
                     messageData={
                         this.state.searchData.length > 0 ?
                         this.state.searchData :
                         this.props.messages
                     }
+                    deleteMessage={this.props.deleteMessage}
                 />
             </FriendsContainer>
         )

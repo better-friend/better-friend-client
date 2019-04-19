@@ -14,31 +14,22 @@ class Login extends React.Component {
 
 
     handleChange = e => {
-        console.log('Changing');
         this.setState({
             [e.target.name]: e.target.value
         });
     }
 
     login = e => {
-        console.log('Logging in')
         e.preventDefault();
         const user = {
             username: this.state.username,
             password: this.state.password
         };
-
-        // let user_id = localStorage.getItem('user_id');
-        // if (user_id) {
-        //     this.props.history.push(`/protected/:user_id`)
-        // };
         axios
             .post('https://better-friend-server.herokuapp.com/users/login', user)
             .then(res => {
-                console.log(res.data)
                 this.props.updateUser(res.data, ()=> {
                     this.props.history.push(`/protected/${res.data.user_id}`)
-                    console.log(res.data.user_id)
                 })
                 try {
                     localStorage.setItem('userData', JSON.stringify(res.data))

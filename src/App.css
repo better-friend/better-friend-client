@@ -42,3 +42,7 @@ h3 {
   max-width: 100%;
   color: #f0b7a4;
 }
+
+span {
+  font-weight: 700;
+}
