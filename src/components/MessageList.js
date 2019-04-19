@@ -31,6 +31,12 @@ class MessageList extends React.Component {
         });
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps !== this.props.messages) {
+            return this.state.messages
+        }
+    }
+
 
     searchMessages = e => {
         const messages = this.props.messages.filter(message => {
@@ -134,7 +140,7 @@ const FriendsContainer = styled.div `
 `
 
 const EventFormH1 = styled.h1 `
-    
+    border-botton: 1px solid #305f72;
 `
 
 const EventFormH3 = styled.h3 `
