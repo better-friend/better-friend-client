@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import axios from 'axios';
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, NavLink, Link, Switch } from 'react-router-dom';
 import PrivateRoute from './Authentication/PrivateRoute';
 import Home from './components/Home';
 import Login from './components/Login';
@@ -114,24 +114,6 @@ class App extends React.Component {
     console.log('Rendering...')
     return (
       <div className="App">
-        <ul className="navBar">
-          <h1>Better Friends</h1>
-          <li>
-            <NavLink exact to="/" className="activeNav">
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/signup" className="activeNav">
-              Signup
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/login" className="activeNav">
-              Login
-            </NavLink>
-          </li>
-        </ul>
         <Switch>
           <PrivateRoute path='/protected/:user_id' render={props => <MessageList {...props} messages={this.state.messages} addMessage={this.addMessage} deleteMessage={this.deleteMessage}/>}/>
           <Route exact path='/' component={Home}/>

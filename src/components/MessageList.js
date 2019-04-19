@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from './Button';
 import MessageContainer from './MessageContainer';
@@ -65,6 +65,14 @@ class MessageList extends React.Component {
     render() {
         return (
             <FriendsContainer>
+                <ul className="navBar">
+                <h1>Better Friends</h1>
+                <li>
+                    <NavLink exact to="/" className="activeNav">
+                    Home
+                    </NavLink>
+                </li>
+            </ul>
                 <EventFormH1>Message Scheduler</EventFormH1>
                 <Input 
                     type="search"

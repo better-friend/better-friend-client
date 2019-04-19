@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from './Button';
 
@@ -7,6 +7,24 @@ const Home = () => {
 
     return (
         <div>
+            <ul className="navBar">
+                <h1>Better Friends</h1>
+                <li>
+                    <NavLink exact to="/" className="activeNav">
+                    Home
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/signup" className="activeNav">
+                    Signup
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/login" className="activeNav">
+                    Login
+                    </NavLink>
+                </li>
+        </ul>
             <H1>Better Friends</H1>
             <P>Never be <span>THAT</span> friend again!</P>
             <Link to="/login"><Button type="primary">Login</Button></Link>

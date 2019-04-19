@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { FormGroup, Input } from 'reactstrap';
-
+import { NavLink, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from './Button';
 
@@ -40,9 +40,29 @@ class Signup extends React.Component {
     }
 
     render() {
-        return(
+        return(                
+        <div>
+            <ul className="navBar">
+                <Link to="https://never-be-that-friend-again.netlify.com/" style={{textDecoration: 'none'}}><h1>Better Friends</h1></Link>
+                    <li>
+                        <NavLink exact to="/" className="activeNav">
+                        Home
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/signup" className="activeNav">
+                        Signup
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/login" className="activeNav">
+                        Login
+                        </NavLink>
+                    </li>
+                </ul>
             <SignupContainer>
                 <h3>Sign Up</h3>
+
                 <FormGroup>
                     <Form onSubmit={this.signup}>
                         <Input 
@@ -65,6 +85,7 @@ class Signup extends React.Component {
                     </Form>
                 </FormGroup>
             </SignupContainer>
+            </div>
         )
     }
 }

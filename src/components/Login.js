@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import { FormGroup, Input } from 'reactstrap';
-import { withRouter } from 'react-router-dom';
+import { NavLink, Link, withRouter } from 'react-router-dom';
 
 import styled from 'styled-components';
 import Button from './Button';
@@ -44,32 +44,52 @@ class Login extends React.Component {
 
     render() {
         return(
-            <LoginContainer>
-                <h3>Login</h3>
-                <FormGroup>
-                    <Form onSubmit={this.login}>
-                        <Input 
-                            type="string"
-                            name="username"
-                            placeholder="Username"
-                            autoComplete="on"
-                            onChange={this.handleChange}
-                            value={this.state.username}
-                            required
-                        />
-                        <Input 
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            autoComplete="on"
-                            onChange={this.handleChange}
-                            value={this.state.password}
-                            required
-                        />
-                        <Button type="primary">Login</Button>
-                    </Form>
-                </FormGroup>
-            </LoginContainer>
+            <div>
+                <ul className="navBar">
+                <Link to="https://never-be-that-friend-again.netlify.com/" style={{textDecoration: 'none'}}><h1>Better Friends</h1></Link>
+                    <li>
+                        <NavLink exact to="/" className="activeNav">
+                        Home
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/signup" className="activeNav">
+                        Signup
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/login" className="activeNav">
+                        Login
+                        </NavLink>
+                    </li>
+                </ul>
+                <LoginContainer>
+                    <h3>Login</h3>
+                    <FormGroup>
+                        <Form onSubmit={this.login}>
+                            <Input 
+                                type="string"
+                                name="username"
+                                placeholder="Username"
+                                autoComplete="on"
+                                onChange={this.handleChange}
+                                value={this.state.username}
+                                required
+                            />
+                            <Input 
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                autoComplete="on"
+                                onChange={this.handleChange}
+                                value={this.state.password}
+                                required
+                            />
+                            <Button type="primary">Login</Button>
+                        </Form>
+                    </FormGroup>
+                </LoginContainer>
+            </div>
         )
     }
 }
