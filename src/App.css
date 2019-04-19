@@ -1,5 +1,9 @@
 /* GLOBAL STYLING */
 
+html {
+  color: #305f72;
+}
+
 h3 {
   background: #305f72;
   color: #f0b7a4;
@@ -16,7 +20,7 @@ h3 {
   list-style: none;
   display: flex;
   background: #305f72;
-  justify-content: flex-end;
+  justify-content: flex-start;
   border-bottom: 1px solid black;
   align-items: center;
   margin: 0;
@@ -38,11 +42,19 @@ h3 {
 }
 
 .navBar h1 {
-  margin: 0 auto;
-  max-width: 100%;
+  margin: 10px;
+  /* max-width: 100%; */
   color: #f0b7a4;
 }
 
 span {
   font-weight: 700;
 }
+
+Input {
+  margin: 10px;
+  padding: 5px; 
+  text-align: center;
+  border-radius: 10px;
+  outline: none;
+} 

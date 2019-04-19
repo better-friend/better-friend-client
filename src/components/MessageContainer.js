@@ -35,7 +35,7 @@ const H2 = styled.h2 `
 `
 
 const MessageInfoCard = styled.div `
-margin
+
 `
 
 
